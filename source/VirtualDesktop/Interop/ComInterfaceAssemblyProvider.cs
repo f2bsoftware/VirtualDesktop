@@ -39,10 +39,11 @@ namespace WindowsDesktop.Interop
 		{
 			var searchTargets = new[]
 			{
-				this._assemblyDirectoryPath,
+				//this._assemblyDirectoryPath,
+				AppDomain.CurrentDomain.BaseDirectory,
 				Environment.CurrentDirectory,
 				Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-				_defaultAssemblyDirectoryPath,
+				//_defaultAssemblyDirectoryPath,
 			};
 
 			foreach (var searchPath in searchTargets)
@@ -121,7 +122,9 @@ namespace WindowsDesktop.Interop
 
 			using (var provider = new CSharpCodeProvider())
 			{
-				var path = Path.Combine(dir.FullName, string.Format(_assemblyName, ProductInfo.OSBuild));
+				//var path = Path.Combine(dir.FullName, string.Format(_assemblyName, ProductInfo.OSBuild));
+				var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, string.Format(_assemblyName, ProductInfo.OSBuild));
+
 				var cp = new CompilerParameters
 				{
 					OutputAssembly = path,
